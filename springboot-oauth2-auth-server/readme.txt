@@ -1,0 +1,1 @@
+run schema.sql in database before or after starting the springboot-oauth2-auth-server project.
