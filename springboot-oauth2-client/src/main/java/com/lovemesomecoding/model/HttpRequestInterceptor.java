@@ -31,10 +31,10 @@ public class HttpRequestInterceptor implements ClientHttpRequestInterceptor {
 				System.out.println();
 				System.out.println(
 						"===========================Http Request begin=============================================");
-				System.out.println("URI         :" + request.getURI());
-				System.out.println("Method      :" + request.getMethod());
-				System.out.println("Headers     :" + request.getHeaders());
-				System.out.println("Request body:" + new String(body, "UTF-8"));
+				log.info("URI         :" + request.getURI());
+				log.info("Method      :" + request.getMethod());
+				log.info("Headers     :" + request.getHeaders());
+				log.info("Request body:" + new String(body, "UTF-8"));
 				System.out.println(
 						"===========================Http Request end===============================================");
 				System.out.println();
@@ -54,9 +54,9 @@ public class HttpRequestInterceptor implements ClientHttpRequestInterceptor {
 				System.out.println();
 				System.out.println(
 						"===========================Http Response begin============================================");
-				System.out.println("Status code  :" + response.getStatusCode());
-				System.out.println("Status code value  :" + response.getStatusCode().value());
-				System.out.println("Headers      :" + response.getHeaders());
+				log.info("Status code  :" + response.getStatusCode());
+				log.info("Status code value  :" + response.getStatusCode().value());
+				log.info("Headers      :" + response.getHeaders());
 
 			} catch (Exception e) {
 				log.warn("Exception msg: {}", e.getMessage());
@@ -72,7 +72,7 @@ public class HttpRequestInterceptor implements ClientHttpRequestInterceptor {
 				}
 				reader.close();
 
-				System.out.println("Response body: " + out.toString());
+				log.info("Response body: " + out.toString());
 				System.out.println(
 						"===========================Http Response end==============================================");
 				System.out.println();

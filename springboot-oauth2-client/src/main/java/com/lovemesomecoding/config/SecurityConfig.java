@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.cors().and().csrf().disable()
               .authorizeRequests()
-                .antMatchers("/", "/error", "/webjars/**")
+                .antMatchers("/", "/error", "/webjars/**","/users/signup","/users/signin")
                 .permitAll()
                 .anyRequest().authenticated()
               .and().oauth2Login();

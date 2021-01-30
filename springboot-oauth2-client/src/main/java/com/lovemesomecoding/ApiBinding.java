@@ -14,9 +14,12 @@ public abstract class ApiBinding {
 
     protected RestTemplate restTemplate;
 
+    public ApiBinding() {
+    }
+
     public ApiBinding(String accessToken) {
         this.restTemplate = new RestTemplate();
-        this.restTemplate.getInterceptors().add(new HttpRequestInterceptor());
+        //this.restTemplate.getInterceptors().add(new HttpRequestInterceptor());
 
         if (accessToken != null) {
             this.restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken));
