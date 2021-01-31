@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -46,7 +47,7 @@ public class User implements Serializable {
     @Column(name = "accountNonLocked")
     private boolean    accountNonLocked;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
@@ -59,6 +60,13 @@ public class User implements Serializable {
         this.credentialsNonExpired = user.isCredentialsNonExpired();
         this.accountNonLocked = user.isAccountNonLocked();
         this.roles = user.getRoles();
+    }
+    
+    public void addRole(Role role) {
+        if(this.roles==null) {
+            this.roles = new ArrayList<>();
+        }
+        this.roles.add(role);
     }
 
 }
