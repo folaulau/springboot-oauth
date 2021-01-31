@@ -16,7 +16,6 @@ I have Postman for testing login(/oauth/token) to Authorization server and getti
 ![alt text](https://github.com/folaulau/springboot-oauth/blob/main/auth-flow.png)
 
 ### Authorization server
-run schema.sql in database before or after starting the springboot-oauth2-auth-server project.
 
 ### Resource server
 Server that has resource clients want to consume
