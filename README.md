@@ -6,9 +6,6 @@ We have a Resource server in springboot-oauth2-resource-server.
 
 I have Postman for testing login(/oauth/token) to Authorization server and getting resources from the Resource server.
 
-### Authorization server
-run schema.sql in database before or after starting the springboot-oauth2-auth-server project.
-
 ### Protocol Flow
 
 1. Authorization request is sent from client to server (acting as resource owner) using password authorization grant
@@ -17,3 +14,14 @@ run schema.sql in database before or after starting the springboot-oauth2-auth-s
 4. Server responds with required protected resources
 
 ![alt text](https://github.com/folaulau/springboot-oauth/blob/main/auth-flow.png)
+
+### Authorization server
+run schema.sql in database before or after starting the springboot-oauth2-auth-server project.
+
+### Resource server
+Server that has resource clients want to consume
+
+### Client server
+Just a client that uses webapp to get accessToken from Github
+
+Referer to springboot-oauth2-client for more info
