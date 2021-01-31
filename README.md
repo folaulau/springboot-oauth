@@ -9,7 +9,7 @@ I have Postman for testing login(/oauth/token) to Authorization server and getti
 ## Authorization server
 run schema.sql in database before or after starting the springboot-oauth2-auth-server project.
 
-Protocol Flow
+### Protocol Flow
 
 1. Authorization request is sent from client to server (acting as resource owner) using password authorization grant
 2. Access token is returned to the client (along with refresh token)
