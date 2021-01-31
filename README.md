@@ -15,6 +15,8 @@ I have Postman for testing login(/oauth/token) to Authorization server and getti
 
 ![alt text](https://github.com/folaulau/springboot-oauth/blob/main/auth-flow.png)
 
+![alt text](https://github.com/folaulau/springboot-oauth/blob/main/oauth%20_token.png)
+
 ### Authorization server
 
 ### Resource server
