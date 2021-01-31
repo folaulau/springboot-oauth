@@ -5,6 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +21,6 @@ import java.util.List;
 @Data
 public class User implements Serializable {
 
-
     /**
      * 
      */
@@ -24,32 +28,37 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer    id;
+    @Column(unique = true, updatable = false, nullable = false)
+    private Integer           id;
 
-    @Column(name = "username")
-    private String     username;
-    
+    @Column(name = "username", unique = true, updatable = true, nullable = false)
+    private String            username;
+
     @Column(name = "password")
-    private String     password;
-    
-    @Column(name = "email")
-    private String     email;
-    
-    @Column(name = "enabled")
-    private boolean    enabled;
-    
-    @Column(name = "accountNonExpired")
-    private boolean    accountNonExpired;
-    
-    @Column(name = "credentialsNonExpired")
-    private boolean    credentialsNonExpired;
-    
-    @Column(name = "accountNonLocked")
-    private boolean    accountNonLocked;
+    private String            password;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "role_user", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private List<Role> roles;
+    @Column(name = "email", unique = true, updatable = true, nullable = false)
+    private String            email;
+
+    @Type(type = "true_false")
+    @Column(name = "enabled")
+    private boolean           enabled;
+
+    @Type(type = "true_false")
+    @Column(name = "accountNonExpired")
+    private boolean           accountNonExpired;
+
+    @Type(type = "true_false")
+    @Column(name = "credentialsNonExpired")
+    private boolean           credentialsNonExpired;
+
+    @Type(type = "true_false")
+    @Column(name = "accountNonLocked")
+    private boolean           accountNonLocked;
+
+    @JsonIgnoreProperties("user")
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private List<UserRole>    roles;
 
     public User(User user) {
         this.username = user.getUsername();
@@ -61,9 +70,9 @@ public class User implements Serializable {
         this.accountNonLocked = user.isAccountNonLocked();
         this.roles = user.getRoles();
     }
-    
-    public void addRole(Role role) {
-        if(this.roles==null) {
+
+    public void addRole(UserRole role) {
+        if (this.roles == null) {
             this.roles = new ArrayList<>();
         }
         this.roles.add(role);

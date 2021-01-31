@@ -1,55 +1,58 @@
+/*******************************************************************************
+ * @ UserRole.java @ Project: SideCar Health Corporation
+ *
+ * Copyright (c) 2017 SideCar Health Corporation. - All Rights Reserved El Segundo, California, U.S.A.
+ *
+ * This software is the confidential and proprietary information of SideCar Health Corporation. ("Confidential
+ * Information").
+ *
+ * You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with SideCar Corporation.
+ *
+ * Contributors: SideCar Health Corporation. - Software Engineering Team
+ ******************************************************************************/
 package com.lovemesomecoding.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-@ToString
+@JsonInclude(value = Include.NON_NULL)
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "role")
-@Data
-public class Role implements Serializable {
+@MappedSuperclass
+public abstract class Role implements Serializable {
 
-    /**
-     * 
-     */
-    private static final long  serialVersionUID = 1L;
-
-    public static final String ADMIN            = "ADMIN";//1
-    public static final String USER             = "USER";//2
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long               id;
-    
-    @Column(name = "name")
-    private String             name;
+    @Column(name = "id", nullable = false, updatable = false, unique = true)
+    protected Long            id;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "permission_role", joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "permission_id", referencedColumnName = "id")})
-    private List<Permission>   permissions;
+    @Column(name = "authority", nullable = false, updatable = false)
+    protected String          authority;
 
-    public Role(long id, Permission... permissions) {
-        this.id = id;
-        for (Permission permission : permissions) {
-            this.addPermission(permission);
-        }
-    }
-
-    public void addPermission(Permission permission) {
-        if (this.permissions == null) {
-            this.permissions = new ArrayList<>();
-        }
-        this.permissions.add(permission);
+    public Role(String authority) {
+        super();
+        this.authority = authority;
     }
 
 }

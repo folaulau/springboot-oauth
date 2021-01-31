@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     protected AuthenticationManager getAuthenticationManager() throws Exception {
@@ -28,14 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         
-        auth.inMemoryAuthentication()
-        .withUser("folau").password(passwordEncoder().encode("test")).roles("USER")
-        .and()
-        .withUser("fusi").password(passwordEncoder().encode("test")).roles("USER")
-        .and()
-        .withUser("lisa").password(passwordEncoder().encode("test")).roles("ADMIN");
+//        auth.inMemoryAuthentication()
+//        .withUser("folau").password(passwordEncoder().encode("test")).roles("USER")
+//        .and()
+//        .withUser("fusi").password(passwordEncoder().encode("test")).roles("USER")
+//        .and()
+//        .withUser("lisa").password(passwordEncoder().encode("test")).roles("ADMIN");
     }
 
 }

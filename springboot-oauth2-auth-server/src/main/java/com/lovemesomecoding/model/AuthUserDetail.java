@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 public class AuthUserDetail extends User implements UserDetails {
 
     public AuthUserDetail(User user) {
         super(user);
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -22,10 +20,10 @@ public class AuthUserDetail extends User implements UserDetails {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
         getRoles().forEach(role -> {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-            role.getPermissions().forEach(permission -> {
-                grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
-            });
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+            // role.getPermissions().forEach(permission -> {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+            // });
 
         });
         return grantedAuthorities;
