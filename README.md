@@ -15,3 +15,5 @@ Protocol Flow
 2. Access token is returned to the client (along with refresh token)
 3. Access token is then sent from client to server (acting as resource server) on each request for protected resource access
 4. Server responds with required protected resources
+
+![alt text](https://github.com/folaulau/springboot-oauth/blob/main/auth-flow.png)
